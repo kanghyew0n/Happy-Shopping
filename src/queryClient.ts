@@ -1,14 +1,9 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient } from "react-query";
+import { request, RequestDocument } from "graphql-request";
 // import { getTodos, postTodo } from "../my-api";
 
 type AnyOBJ = { [key: string]: any };
-const BASE_URL = `https://fakestoreapi.com`;
+const BASE_URL = `/`;
 
 export const getClient = (() => {
   let client: QueryClient | null = null;
@@ -29,7 +24,7 @@ export const getClient = (() => {
   };
 })(); // 마지막 괄호 -?
 
-export const fetcher = async ({
+export const restFetcher = async ({
   method,
   path,
   body,
@@ -65,6 +60,10 @@ export const fetcher = async ({
   }
 };
 
+export const graphqlFetcher = (query: RequestDocument, variables = {}) =>
+  request(BASE_URL, query, variables);
+
 export const QueryKeys = {
   PRODUCTS: "PRODUCTS",
+  CART : "CART"
 };
